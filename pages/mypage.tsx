@@ -1,4 +1,4 @@
-import { ReactElement, useState } from "react";
+import { Fragment, ReactElement, useEffect, useState } from "react";
 import Layout from "../src/components/layout";
 import { NextPageWithLayout } from "./_app";
 import emotionStyled from "@emotion/styled"
@@ -17,22 +17,24 @@ const MyPage: NextPageWithLayout = () => {
     return (
         <>  
             <CheckLogin></CheckLogin>
-            <Box sx={{height : "67px"}}></Box>
             {accountStore.accountType} 마이페이지
         </>
     )
 }
 
-const CheckLogin = () => {
+const CheckLogin: () => JSX.Element = () => {
     const accountStore = useAccountStore()
     const router = useRouter()
 
-    if (accountStore.accountType == "guest") {
-        // alert("로그인이 필요합니다.")
-        router.push("/", undefined, { shallow : true})
-    }
+    useEffect(() => {
+        if (accountStore.accountType == "guest") {
+            // alert("로그인이 필요합니다.")
+            router.push("/", undefined, { shallow : true})
+        }
+    }, []);
 
-    return <></>
+
+    return <Box sx={{height : "67px"}}></Box>
 }
 
 MyPage.getLayout = function getLayout(page: ReactElement) {
