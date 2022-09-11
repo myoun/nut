@@ -1,21 +1,25 @@
-import { AppBar, IconButton, Menu, MenuItem, Toolbar } from "@mui/material";
+import { AppBar, IconButton, Menu, Toolbar } from "@mui/material";
 import { Box } from "@mui/system";
 import emotionStyled from "@emotion/styled";
 import { Login, AccountCircle } from "@mui/icons-material";
 import React from "react";
 import { useAccountStore, useLoginModal } from "../state/store";
-import { User } from "../account";
 import NutSignModal from "./modal/NutSignModal";
+import UserMenuItem from "./menu/UserMenuItem";
+import AdminMenuItem from "./menu/AdminMenuItem";
+import SellerMenuItem from "./menu/SellerMenuItem";
+import { useRouter } from "next/router";
 
 interface AppBarProps {
     handleModalOpen : () => void
 }
 
-const MenuCenterP = emotionStyled.p`
+
+export const MenuCenterP = emotionStyled.p`
   text-align : center;
 `
 
-const MenuCenterSpan = emotionStyled.span`
+export const MenuCenterSpan = emotionStyled.span`
   text-align : center;
   width: 100%;
 `
@@ -36,6 +40,7 @@ const NutAppBar = () => {
 
 const NutAppBarWithoutModal = (props: AppBarProps) => {
     const accountStore = useAccountStore()
+    const router = useRouter();
     const [auth, setAuth] = React.useState(true);
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,10 +55,23 @@ const NutAppBarWithoutModal = (props: AppBarProps) => {
       setAnchorEl(null);
     };
 
-    const logout = () => {
-      accountStore.logout()
-      setAnchorEl(null);
+    let menuItem: JSX.Element
+
+    switch (accountStore.accountType) {
+      case "user":
+        menuItem = <UserMenuItem closeMenu={handleClose}/>
+        break;
+      case "seller":
+        menuItem = <SellerMenuItem closeMenu={handleClose}/>
+        break;
+      case "admin":
+        menuItem = <AdminMenuItem closeMenu={handleClose}/>
+        break;
+      default:
+        menuItem = <MenuCenterP>오류가 발생했습니다.</MenuCenterP>
+        break;
     }
+
     return <>
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" color="transparent"> 
@@ -80,11 +98,7 @@ const NutAppBarWithoutModal = (props: AppBarProps) => {
                 onClose={handleClose}
               >
                 <Box sx={{padding : "20px"}}>
-                  <MenuCenterP>{accountStore.account?.id}님</MenuCenterP>
-                  {accountStore.accountType == "user" && <MenuCenterP>내 포인트 : {(accountStore.account as User).point}p</MenuCenterP>}
-                  <MenuItem onClick={handleClose}><MenuCenterSpan>계정 관리</MenuCenterSpan></MenuItem>
-                  {accountStore.accountType == "seller" && <MenuItem onClick={handleClose}>상품 관리</MenuItem>}
-                  <MenuItem onClick={logout}><MenuCenterSpan>로그아웃</MenuCenterSpan></MenuItem>
+                  {menuItem}
                 </Box>
               </Menu>          
                </div>
