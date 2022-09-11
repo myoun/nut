@@ -28,8 +28,8 @@ const CheckLogin = () => {
     const router = useRouter()
 
     if (accountStore.accountType == "guest") {
-        alert("로그인이 필요합니다.")
-        router.push("/", undefined, { shallow : true })
+        // alert("로그인이 필요합니다.")
+        router.push("/", undefined, { shallow : true})
     }
 
     return <></>
