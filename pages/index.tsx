@@ -1,10 +1,12 @@
 import type { NextPage } from 'next'
 import emotionStyled from "@emotion/styled"
-import React from "react"
+import React, { ReactElement } from "react"
 import NutAppBar from '../src/components/NutAppBar';
-import NutLoginModal from '../src/components/NutLogin';
+import NutLoginModal from '../src/components/modal/NutSignModal';
 import { Button } from '@mui/material';
-import { useAccountStore } from '../src/state/store';
+import { useAccountStore, useLoginModal } from '../src/state/store';
+import { NextPageWithLayout } from './_app';
+import Layout from '../src/components/layout';
 
 const Big = emotionStyled.p`
   font-size : 6.5rem;
@@ -25,19 +27,13 @@ const ElementContainer = emotionStyled.div`
   padding-left : 50px;
 `
 
-
-
-const Home: NextPage = () => {
+const Home: NextPageWithLayout = () => {
   const accountStore = useAccountStore()
-
-  const [open, setOpen] = React.useState(false)
-
-  const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const loginModal = useLoginModal()
 
   const startNow = () => {
     if (accountStore.accountType == "guest") {
-      handleOpen()
+      loginModal.open()
     } else {
       // 각자 대시보드로
     }
@@ -45,8 +41,6 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <NutAppBar handleOpenLoginModal={handleOpen}></NutAppBar>
-      <NutLoginModal open={open} handleClose={handleClose}></NutLoginModal>
       <ElementContainer>
         <Big>CUT</Big>
         <Description>쓰레기를 돈으로</Description>
@@ -56,8 +50,12 @@ const Home: NextPage = () => {
   )
 }
 
-
-
-
+Home.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <Layout>
+      {page}
+    </Layout>
+  );
+}
 
 export default Home

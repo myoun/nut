@@ -36,4 +36,18 @@ export const useAccountStore = create<AccountStore>((set) => ({
     },
 }))
 
-export interface UserAccount { id: string, name: string, point: number, createAt: string }
+interface LoginModalStore {
+    isOpen : boolean,
+    open(): void,
+    close(): void,
+}
+
+export const useLoginModal = create<LoginModalStore>((set) => ({
+    isOpen : false,
+    open() {
+        set((state) => ({isOpen : true}));
+    },
+    close() {
+        set((state) => ({isOpen : false}))
+    },
+}));

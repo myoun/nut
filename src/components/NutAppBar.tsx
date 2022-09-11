@@ -2,12 +2,13 @@ import { AppBar, IconButton, Menu, MenuItem, Toolbar } from "@mui/material";
 import { Box } from "@mui/system";
 import emotionStyled from "@emotion/styled";
 import { Login, AccountCircle } from "@mui/icons-material";
-import React, { useContext } from "react";
-import { useAccountStore } from "../state/store";
+import React from "react";
+import { useAccountStore, useLoginModal } from "../state/store";
 import { User } from "../account";
+import NutSignModal from "./modal/NutSignModal";
 
 interface AppBarProps {
-    handleOpenLoginModal : () => void
+    handleModalOpen : () => void
 }
 
 const MenuCenterP = emotionStyled.p`
@@ -25,7 +26,15 @@ const AppBarTitle = emotionStyled.p`
   flex-grow : 1;
 ` 
 
-const NutAppBar = (props: AppBarProps) => {
+const NutAppBar = () => {
+  const loginModal = useLoginModal()
+  return <>
+    <NutAppBarWithoutModal handleModalOpen={loginModal.open}></NutAppBarWithoutModal>
+    <NutSignModal open={loginModal.isOpen} handleClose={loginModal.close}></NutSignModal>
+  </>
+}
+
+const NutAppBarWithoutModal = (props: AppBarProps) => {
     const accountStore = useAccountStore()
     const [auth, setAuth] = React.useState(true);
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -81,7 +90,7 @@ const NutAppBar = (props: AppBarProps) => {
                </div>
           :
               <IconButton color="inherit" onClick={() => {
-                  props.handleOpenLoginModal()
+                  props.handleModalOpen()
                 }}>
                   <Login></Login>
               </IconButton>

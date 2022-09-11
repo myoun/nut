@@ -2,7 +2,7 @@ import { createContext, useState } from "react"
 import emotionStyled from "@emotion/styled";
 import SignUpModal from "./SignUpModal";
 import LoginModal from "./LoginModal";
-import { AccountType } from "../account";
+import { AccountType } from "../../account";
 
 // Styles
 export const BoldText = emotionStyled.span`

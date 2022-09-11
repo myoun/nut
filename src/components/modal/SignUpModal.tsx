@@ -1,9 +1,9 @@
 import { Button, Container, Dialog, Stack, TextField } from "@mui/material"
 import { Box } from "@mui/system"
 import { useState } from "react"
-import { signUpAs } from "../account"
-import { sendPostRequest } from "../utils"
-import { BoldText, CenterText, getTranslatedMode, SignContext, SignContextProps } from "./NutLogin"
+import { signUpAs } from "../../account"
+import { sendPostRequest } from "../../utils"
+import { BoldText, CenterText, getTranslatedMode, SignContext, SignContextProps } from "./NutSignModal"
 
 export default function SignUpModal() {
     const [id, setId] = useState("")

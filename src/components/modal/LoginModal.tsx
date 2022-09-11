@@ -1,9 +1,9 @@
 import { Button, Dialog, TextField } from "@mui/material"
 import { Box, Container, Stack } from "@mui/system"
 import { useState } from "react"
-import { AccountTypeGuard, getAccountInfo, validateAs } from "../account"
-import { useAccountStore } from "../state/store"
-import { BoldText, CenterText, getTranslatedMode, SignContext, SignContextProps } from "./NutLogin"
+import { AccountTypeGuard, getAccountInfo, validateAs } from "../../account"
+import { useAccountStore } from "../../state/store"
+import { BoldText, CenterText, getTranslatedMode, SignContext, SignContextProps } from "./NutSignModal"
 
 const LoginModal = () => {
     const accountStore = useAccountStore()
