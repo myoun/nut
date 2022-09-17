@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const BACKEND_BASE_URL = "http://localhost:8080"
+const BACKEND_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
 export async function sendGetRequest<T>(endpoint: string): Promise<T> {
     const res = await axios.get<T>(BACKEND_BASE_URL+endpoint)

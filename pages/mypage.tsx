@@ -13,7 +13,6 @@ const Title = emotionStyled.h1`
 const MyPage: NextPageWithLayout = () => {
     const accountStore = useAccountStore()
 
-
     return (
         <>  
             <CheckLogin></CheckLogin>
