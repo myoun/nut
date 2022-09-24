@@ -1,11 +1,12 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
+import { SellerInfo } from "../../pages/shop";
 
 interface ShopProductProps {
     id: number;
     name: string;
     price: number;
-    seller: string;
+    seller: SellerInfo;
     thumbnailUrl: string | undefined;
 }
 
@@ -50,7 +51,7 @@ const ShopProduct = ({id, name, price, seller, thumbnailUrl}: ShopProductProps) 
         </Link>
         <DescriptionSpan>{price.toFixed(0)} 포인트</DescriptionSpan>
         <ProductName>{name}</ProductName>
-        <DescriptionSpan>{seller}</DescriptionSpan>
+        <DescriptionSpan>{seller.name}</DescriptionSpan>
     </ProductContainer>
 }
 

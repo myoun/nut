@@ -24,7 +24,12 @@ interface ProductSchema {
     name: string;
     price: number;
     thumbnail_url: string | null;
-    seller_id: string;
+    seller : SellerInfo;
+}
+
+export interface SellerInfo {
+    name: string,
+    id: string
 }
 
 const ShopPage: NextPageWithLayout = () => {
@@ -44,7 +49,7 @@ const ShopPage: NextPageWithLayout = () => {
             <Description>포인트로 제품을 구매할 수 있는 페이지입니다.</Description>
             <ProductContainer>
                 {
-                    data?.map((p) => <ShopProduct name={p.name} price={p.price} id={p.id} seller={p.seller_id} thumbnailUrl={p.thumbnail_url ?? undefined} key={p.id}/>)
+                    data?.map((p) => <ShopProduct name={p.name} price={p.price} id={p.id} seller={p.seller} thumbnailUrl={p.thumbnail_url ?? undefined} key={p.id}/>)
                 }
             </ProductContainer>
         </>
