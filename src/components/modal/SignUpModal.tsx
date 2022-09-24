@@ -34,7 +34,7 @@ export default function SignUpModal() {
                 setContextValue(value)
                 return <>
                     <Dialog open={value.open} onClose={value.handleClose} maxWidth="xl">
-                        <Container fixed sx={{ height : '70vh', width : '1000px'}} disableGutters>
+                        <Container fixed sx={{ height : '85vh', width : '1000px'}} disableGutters>
                                 <Stack sx={{margin : "50px"}} spacing={5}>
                                 <h1>{getTranslatedMode(value.mode)} 가입</h1>
                                     <TextField label="ID" variant="standard" onChange={event => setId(event.target.value)}></TextField>
