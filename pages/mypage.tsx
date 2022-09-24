@@ -6,10 +6,6 @@ import { useAccountStore } from "../src/state/store";
 import { Box } from "@mui/system";
 import { useRouter } from "next/router";
 
-const Title = emotionStyled.h1`
-    
-`
-
 const MyPage: NextPageWithLayout = () => {
     const accountStore = useAccountStore()
 
@@ -33,7 +29,7 @@ const CheckLogin: () => JSX.Element = () => {
     }, []);
 
 
-    return <Box sx={{height : "67px"}}></Box>
+    return <></>
 }
 
 MyPage.getLayout = function getLayout(page: ReactElement) {

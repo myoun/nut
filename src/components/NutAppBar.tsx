@@ -74,7 +74,7 @@ const NutAppBarWithoutModal = (props: AppBarProps) => {
 
     return <>
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" color="transparent"> 
+      <AppBar position="fixed" color="secondary"> 
         <Toolbar>
           <AppBarTitle>CUT</AppBarTitle>
           { accountStore.accountType != "guest" ? 

@@ -11,6 +11,7 @@ export default function UserMenuItem({closeMenu}: {closeMenu: () => void}) {
         <>
             <MenuCenterP>{accountStore.account?.id}님</MenuCenterP>
             <MenuCenterP>내 포인트 : {(accountStore.account as User).point}p</MenuCenterP>
+            <MenuItem onClick={() => {router.push("/shop", undefined, { shallow : true })}}><MenuCenterSpan>상점</MenuCenterSpan></MenuItem>
             <MenuItem onClick={() => {router.push("/mypage", undefined, { shallow : true }); closeMenu()}}><MenuCenterSpan>마이페이지</MenuCenterSpan></MenuItem>
             <MenuItem onClick={accountStore.logout}><MenuCenterSpan>로그아웃</MenuCenterSpan></MenuItem>
         </>
