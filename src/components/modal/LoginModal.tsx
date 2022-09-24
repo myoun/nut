@@ -56,7 +56,7 @@ const LoginModal = () => {
                 setContextValue(value);
                 return <>
                     <Dialog open={value.open} onClose={value.handleClose} maxWidth="xl">
-                        <Container fixed sx={{ height : '75vh', width : '1000px'}} disableGutters>
+                        <Container fixed sx={{ height : '600px', width : '1000px'}} disableGutters>
                                 <Stack sx={{margin : "50px"}} spacing={5}>
                                 <h1>{getTranslatedMode(value.mode)}로 로그인</h1>
                                     <TextField label="ID" variant="standard" onChange={event => setId(event.target.value)}></TextField>
