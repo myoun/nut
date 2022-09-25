@@ -19,12 +19,14 @@ const ProductContainer = styled.div`
     text-align: center;
 `
 
-interface ProductSchema {
+export interface ProductSchema {
     id: number;
     name: string;
     price: number;
     thumbnail_url: string | null;
     seller : SellerInfo;
+    description: string;
+    content: string;
 }
 
 export interface SellerInfo {
