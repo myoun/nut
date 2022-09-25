@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Button } from "@mui/material";
 import { Box } from "@mui/system";
 import Markdown from "markdown-to-jsx";
 import { useRouter } from "next/router";
@@ -53,7 +54,7 @@ const ImageContainer = styled.div`
 const DescriptionContainer = styled.div`
     display : grid;
     grid-template-columns : 1fr;
-    grid-template-rows : 2fr 1fr 8fr;
+    grid-template-rows : 2fr 1fr 1fr 6fr;
     row-gap : 20px;
     padding-left : 20px;
     padding-right : 20px;
@@ -95,6 +96,7 @@ const ProductPage: NextPageWithLayout = () => {
                     <DescriptionContainer>
                         <h1>{data!!.name}</h1>
                         <PriceP>{data!!.price}포인트</PriceP>
+                        <Button color="primary" variant="outlined">구매하기</Button>
                         <DescriptionTextArea disabled>{data!!.description}</DescriptionTextArea>
                     </DescriptionContainer>
                 </ProductInfoContainer>
