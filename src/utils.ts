@@ -27,4 +27,12 @@ export function mapOf<V>(obj: { [key : string] : V }): Map<string, V> {
     return map
 }
 
+export function safeAlert(message: any): boolean {
+    if (typeof window !== "undefined") {
+        window.alert(message)
+        return true
+    }
+    return false
+}
+
 export const axiosFetcher = (url: string) => axios.get(url).then(res => res.data)

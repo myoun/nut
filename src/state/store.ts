@@ -1,5 +1,6 @@
+import { KeyedMutator } from 'swr'
 import create from 'zustand'
-import { Account, AccountToAccountType, AccountType, AccountTypeGuard } from '../account'
+import { Account, AccountToAccountType, AccountType, AccountTypeGuard, User } from '../account'
 
 interface AccountStore {
     accountType: AccountType
@@ -10,7 +11,7 @@ interface AccountStore {
      * accountType to "guest" and account to null
      */
     logout: () => void,
-    login(account: Account) : void
+    login(account: Account) : void,
 }
 
 export const useAccountStore = create<AccountStore>((set) => ({

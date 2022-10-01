@@ -5,9 +5,11 @@ import Markdown from "markdown-to-jsx";
 import { useRouter } from "next/router";
 import { ReactElement } from "react";
 import useSWR from "swr";
+import { User } from "../../src/account";
 import Layout from "../../src/components/layout";
+import { useAccountStore } from "../../src/state/store";
 import { Description, Title } from "../../src/styles";
-import { axiosFetcher, BACKEND_BASE_URL, formatUrl } from "../../src/utils";
+import { axiosFetcher, BACKEND_BASE_URL, formatUrl, safeAlert, sendPostRequest } from "../../src/utils";
 import { ProductSchema } from "../shop";
 import { NextPageWithLayout } from "../_app";
 
@@ -73,17 +75,55 @@ const DescriptionTextArea = styled.textarea`
     resize : none;
 `
 
+interface PurchaseRequestInfo {
+    user_id: string;
+    product_id: number;
+}
+
+interface PurchaseResponse {
+    user: User;
+    product: ProductSchema;
+}
+
 const ProductPage: NextPageWithLayout = () => {
 
     const router = useRouter();
     const { id } = router.query
+    
+    const productId = id as string;
+
+    const accountStore = useAccountStore()
 
 
-    const { data } = useSWR<ProductSchema>(formatUrl(BACKEND_BASE_URL!!, "/sellers/products/"+id), axiosFetcher, {
+    const { data } = useSWR<ProductSchema>(typeof id !== "undefined" ? formatUrl(BACKEND_BASE_URL!!, "/sellers/products/"+productId) : null, axiosFetcher, {
         revalidateOnFocus : false,
         refreshWhenHidden : false,
         refreshWhenOffline : false
     })
+
+    const buy = () => {
+        // 비회원 검증
+        if (accountStore.accountType != "user") {
+            // 게스트나 기타 아이디
+            safeAlert("유저 아아디로 로그인해주세요.")
+            return
+        }
+
+        if ((accountStore.account!! as User).point < data!!.price) {
+            safeAlert("포인트가 부족합니다.")
+            return
+        }
+
+        const requestInfo: PurchaseRequestInfo = {
+            user_id : accountStore.account!!.id,
+            product_id : parseInt(productId)
+        }
+
+        const response = sendPostRequest<PurchaseResponse>("/users/purchase", requestInfo)
+
+        accountStore.swrAppBarMutate?.call(null)
+        console.log(response)
+    }
 
     return <>
         {
@@ -96,8 +136,8 @@ const ProductPage: NextPageWithLayout = () => {
                     <DescriptionContainer>
                         <h1>{data!!.name}</h1>
                         <PriceP>{data!!.price}포인트</PriceP>
-                        <Button color="primary" variant="outlined">구매하기</Button>
-                        <DescriptionTextArea disabled>{data!!.description}</DescriptionTextArea>
+                        <Button color="primary" variant="outlined" onClick={buy}>구매하기</Button>
+                        <DescriptionTextArea disabled value={data!!.description}></DescriptionTextArea>
                     </DescriptionContainer>
                 </ProductInfoContainer>
                 <ProductContentContainer>

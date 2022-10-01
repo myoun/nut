@@ -1,6 +1,7 @@
+import useSwr from "swr";
 import CONSTANT from "./constant";
 import { AccountDto, ValidateDto } from "./dto/dtos";
-import { sendGetRequest, sendPostRequest } from "./utils";
+import { axiosFetcher, BACKEND_BASE_URL, formatUrl, sendGetRequest, sendPostRequest } from "./utils";
 
 export type AccountType = "user" | "seller" | "admin" | "guest"
 
@@ -54,7 +55,6 @@ export async function getAccountInfo<AC extends AccountType>(id: string, mode: A
     const accountResponse = await sendGetRequest<AccountTypeToAccount<AC>>(endpoint)
     return accountResponse
 }
-
 export class AccountTypeGuard {
 
     private constructor() {}
