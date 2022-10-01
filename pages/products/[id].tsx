@@ -121,7 +121,6 @@ const ProductPage: NextPageWithLayout = () => {
 
         const response = sendPostRequest<PurchaseResponse>("/users/purchase", requestInfo)
 
-        accountStore.swrAppBarMutate?.call(null)
         console.log(response)
     }
 
