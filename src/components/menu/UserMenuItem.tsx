@@ -11,7 +11,12 @@ function UserMenuItem({closeMenu}: {closeMenu: () => void}) {
     const router = useRouter()
 
     const { data } = useSWR<User>(formatUrl(BACKEND_BASE_URL!!, `/users/${accountStore.account!!.id}`), axiosFetcher, {
-        refreshInterval : 1000
+        refreshInterval : 1000,
+        onSuccess : (data) => {
+            if (data.point != (accountStore.account as User).point) {
+                accountStore.modifyPoint(data.point)
+            }
+        }
     });
 
     return (

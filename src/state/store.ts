@@ -12,6 +12,7 @@ interface AccountStore {
      */
     logout: () => void,
     login(account: Account) : void,
+    modifyPoint(point: number): void,
 }
 
 export const useAccountStore = create<AccountStore>((set) => ({
@@ -35,6 +36,19 @@ export const useAccountStore = create<AccountStore>((set) => ({
         }
          set((state) => ({accountType: type, account: account}))
     },
+
+    modifyPoint(point) {
+        if (this.accountType != "user") {
+            throw Error("Invalid operation for account type: "+this.accountType)
+        }
+        set((state) => {
+            const na = state.account;
+            (na as User).point = point;
+            return {
+                account : na
+            }
+        })
+    }
 }))
 
 interface LoginModalStore {
