@@ -27,7 +27,6 @@ export const MenuCenterSpan = emotionStyled.span`
 const AppBarTitle = emotionStyled.p`
   font-weight : 1000;
   font-size : 20px;
-  flex-grow : 1;
 ` 
 
 const NutAppBar = () => {
@@ -77,6 +76,7 @@ const NutAppBarWithoutModal = (props: AppBarProps) => {
       <AppBar position="fixed" color="secondary"> 
         <Toolbar>
           <AppBarTitle onClick={() => router.push("/")} draggable={false}>CUT</AppBarTitle>
+          <Box sx={{ flex: 1 }}></Box>
           { accountStore.accountType != "guest" ? 
             <div>
               <IconButton color="inherit" onClick={handleMenu}>
