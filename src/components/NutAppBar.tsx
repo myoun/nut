@@ -76,7 +76,7 @@ const NutAppBarWithoutModal = (props: AppBarProps) => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="fixed" color="secondary"> 
         <Toolbar>
-          <AppBarTitle>CUT</AppBarTitle>
+          <AppBarTitle onClick={() => router.push("/")} draggable={false}>CUT</AppBarTitle>
           { accountStore.accountType != "guest" ? 
             <div>
               <IconButton color="inherit" onClick={handleMenu}>

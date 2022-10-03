@@ -101,7 +101,7 @@ const ProductPage: NextPageWithLayout = () => {
         refreshWhenOffline : false
     })
 
-    const buy = () => {
+    const buy = async () => {
         // 비회원 검증
         if (accountStore.accountType != "user") {
             // 게스트나 기타 아이디
@@ -119,9 +119,11 @@ const ProductPage: NextPageWithLayout = () => {
             product_id : parseInt(productId)
         }
 
-        const response = sendPostRequest<PurchaseResponse>("/users/purchase", requestInfo)
+        const response = await sendPostRequest<PurchaseResponse>("/users/purchase", requestInfo)
 
-        console.log(response)
+        if (response) {
+            safeAlert("성공적으로 상품을 구매했습니다.")
+        }
     }
 
     return <>
