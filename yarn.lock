@@ -2238,6 +2238,11 @@
   dependencies:
     "loose-envify" "^1.1.0"
 
+"scroll-snap@^4.0.3":
+  "integrity" "sha512-7am2JXqY/0jHN9+3b2zhZtm55NmzEQhZTXZBIdC/fVb6aVN5nonjbRpf+OghU9LhguJB+rq5ty9SmQcYzMvMxw=="
+  "resolved" "https://registry.npmjs.org/scroll-snap/-/scroll-snap-4.0.3.tgz"
+  "version" "4.0.3"
+
 "semver@^6.3.0":
   "integrity" "sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw=="
   "resolved" "https://registry.npmjs.org/semver/-/semver-6.3.0.tgz"

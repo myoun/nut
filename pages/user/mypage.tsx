@@ -1,8 +1,8 @@
 import { Fragment, ReactElement, useEffect, useState } from "react";
-import Layout from "../src/components/layout";
-import { NextPageWithLayout } from "./_app";
+import Layout from "../../src/components/layout";
+import { NextPageWithLayout } from "../_app";
 import emotionStyled from "@emotion/styled"
-import { useAccountStore } from "../src/state/store";
+import { useAccountStore } from "../../src/state/store";
 import { Box } from "@mui/system";
 import { useRouter } from "next/router";
 

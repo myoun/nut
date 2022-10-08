@@ -12,13 +12,10 @@ const theme = createTheme({
 
 export default function Layout({children}: {children: JSX.Element}) {
     return (
-        <>
-            <ThemeProvider theme={theme}>
-                <NutAppBar/>
-                <Box sx={{height : "67px"}}></Box>
-                <main>{children}</main>
-            </ThemeProvider>
-
-        </>
+        <ThemeProvider theme={theme}>
+            <NutAppBar/>
+            <Box sx={{height : "67px"}}></Box>
+            <main>{children}</main>
+        </ThemeProvider>
     )
 }

@@ -2,29 +2,22 @@ import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import { ReactElement } from "react";
 import Layout from "../src/components/layout";
-import ShopProduct from "../src/components/ShopProduct";
+import { ShopProduct } from "../src/components/ShopProduct";
 import { useAccountStore } from "../src/state/store";
-import { Title, Description } from "../src/styles";
+import { Title, Description, ProductContainer } from "../src/styles";
 import { axiosFetcher, BACKEND_BASE_URL, formatUrl, mapOf, sendGetRequest } from "../src/utils";
 import { NextPageWithLayout } from "./_app";
 import useSwr from 'swr'
 
-const ProductContainer = styled.div`
-    display : grid;
-    padding : 50px;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(autofill, minmax(200px, auto));
-    column-gap : 25px;
-    row-gap : 20px;
-    text-align: center;
-`
+export interface ProductSchema extends Product {
+    seller : SellerInfo;
+}
 
-export interface ProductSchema {
+export interface Product {
     id: number;
     name: string;
     price: number;
     thumbnail_url: string | null;
-    seller : SellerInfo;
     description: string;
     content: string;
 }

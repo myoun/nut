@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
 import { SellerInfo } from "../../pages/shop";
+import { PurchaseHistory } from "../../pages/user/purchase";
 
 interface ShopProductProps {
     id: number;
@@ -44,7 +45,7 @@ const ProductName = styled.h1`
     font-size : 1.5rem;
 `
 
-const ShopProduct = ({id, name, price, seller, thumbnailUrl}: ShopProductProps) => {
+export const ShopProduct = ({id, name, price, seller, thumbnailUrl}: ShopProductProps) => {
     return <ProductContainer className="product">
         <Link href={`/products/${id.toFixed(0)}`}>
           <ProductThumbnail alt="제품 사진" src={thumbnailUrl}></ProductThumbnail>
@@ -55,4 +56,14 @@ const ShopProduct = ({id, name, price, seller, thumbnailUrl}: ShopProductProps) 
     </ProductContainer>
 }
 
-export default ShopProduct
+export const PurchaseHistoryProduct = ({ history }: { history: PurchaseHistory}) => {
+    return <ProductContainer className="product">
+        <Link href={`/products/${history.product.id.toFixed(0)}`}>
+          <ProductThumbnail alt="제품 사진" src={history.product.thumbnail_url!}></ProductThumbnail>
+        </Link>
+        <DescriptionSpan>{history.product.price.toFixed(0)} 포인트</DescriptionSpan>
+        <ProductName>{history.product.name}</ProductName>
+        <DescriptionSpan>{history.purchaseAt} 구매</DescriptionSpan>
+        <DescriptionSpan style={{color: history.isDelivered ? "greenyellow" : "tomato"}}>{history.isDelivered ? "배송 완료" : "배송중"} (ID : {history.id})</DescriptionSpan>
+    </ProductContainer>
+}
