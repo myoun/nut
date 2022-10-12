@@ -27,18 +27,8 @@ const PurchaseListPage: NextPageWithLayout = () => {
 
     const [showDelivered, setShowDelivered] = useState(false)
 
-    useEffect(() => {
-        if (accountStore.accountType != "user") {
-            safeAlert("유저만 확인할 수 있습니다 : "+accountStore.accountType)
-            router.back()
-        }
-    }, [])
-
-
-
     const { data } = useSWR<PurchaseHistory[]>(accountStore.account?.id ? formatUrl(BACKEND_BASE_URL!!, `/users/${accountStore.account!.id}/history`) : null, axiosFetcher);
 
-    console.log(data)
     return <>
         <style jsx global>{`
             body {
@@ -55,7 +45,7 @@ const PurchaseListPage: NextPageWithLayout = () => {
                     if (!showDelivered) {
                         vdata = vdata.filter((v) => !v.isDelivered)
                     }
-                    return vdata.map((v) => <PurchaseHistoryProduct history={v}></PurchaseHistoryProduct>)
+                    return vdata.map((v) => <PurchaseHistoryProduct history={v} key={v.id}></PurchaseHistoryProduct>)
                 })()
             }
         </ProductContainer>
@@ -64,7 +54,7 @@ const PurchaseListPage: NextPageWithLayout = () => {
 
 PurchaseListPage.getLayout = function getLayout(page: ReactElement) {
     return (
-        <Layout>
+        <Layout restrictUserAccess={"user"}>
         {page}
         </Layout>
     );

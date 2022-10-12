@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { Button } from "@mui/material";
 import { Box } from "@mui/system";
-import Markdown from "markdown-to-jsx";
 import { useRouter } from "next/router";
 import { ReactElement } from "react";
 import useSWR from "swr";
@@ -10,6 +9,7 @@ import Layout from "../../src/components/layout";
 import { useAccountStore } from "../../src/state/store";
 import { Description, Title } from "../../src/styles";
 import { axiosFetcher, BACKEND_BASE_URL, formatUrl, safeAlert, sendPostRequest } from "../../src/utils";
+import { EditerMarkdown } from "../seller/newproduct";
 import { ProductSchema } from "../shop";
 import { NextPageWithLayout } from "../_app";
 
@@ -144,7 +144,7 @@ const ProductPage: NextPageWithLayout = () => {
                 <ProductContentContainer>
                     <h1>상품 설명</h1>
                     <Box sx={{border : '2px solid lightgray', minHeight : '500px', borderRadius : '2px'}}>
-                        <Markdown>{data!!.content}</Markdown>
+                        <EditerMarkdown source={data!!.content}></EditerMarkdown>
                     </Box>
                 </ProductContentContainer>
             </ProductContainer>

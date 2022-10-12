@@ -4,7 +4,7 @@ import useSWR from "swr"
 import { getAccountInfo, User } from "../../account"
 import { useAccountStore } from "../../state/store"
 import { axiosFetcher, BACKEND_BASE_URL, formatUrl } from "../../utils"
-import { MenuCenterP, MenuCenterSpan } from "../NutAppBar"
+import { MenuCenterP, MenuCenterSpan, MenuLinkItem } from "../NutAppBar"
 
 function UserMenuItem({closeMenu}: {closeMenu: () => void}) {
     const accountStore = useAccountStore()
@@ -23,9 +23,9 @@ function UserMenuItem({closeMenu}: {closeMenu: () => void}) {
         <>
             <MenuCenterP>{accountStore.account?.id}님</MenuCenterP>
             <MenuCenterP>내 포인트 : {data?.point}p</MenuCenterP>
-            <MenuItem onClick={() => {router.push("/shop", undefined, { shallow : true })}}><MenuCenterSpan>상점</MenuCenterSpan></MenuItem>
-            <MenuItem onClick={() => {router.push("/user/mypage", undefined, { shallow : true }); closeMenu()}}><MenuCenterSpan>마이페이지</MenuCenterSpan></MenuItem>
-            <MenuItem onClick={() => {router.push("/user/purchase", undefined, { shallow : true }); closeMenu()}}><MenuCenterSpan>주문 내역</MenuCenterSpan></MenuItem>
+            <MenuLinkItem closeMenu={closeMenu} href="/shop"><MenuCenterSpan>상점</MenuCenterSpan></MenuLinkItem>
+            <MenuLinkItem closeMenu={closeMenu} href="/user/mypage"><MenuCenterSpan>마이페이지</MenuCenterSpan></MenuLinkItem>
+            <MenuLinkItem closeMenu={closeMenu} href="/user/purchase"><MenuCenterSpan>주문 내역</MenuCenterSpan></MenuLinkItem>
             <MenuItem onClick={accountStore.logout}><MenuCenterSpan>로그아웃</MenuCenterSpan></MenuItem>
         </>
     )

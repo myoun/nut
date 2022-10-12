@@ -10,7 +10,6 @@ export default function AdminMenuItem({closeMenu}: {closeMenu: () => void}) {
     return (
         <>
             <MenuCenterP>{accountStore.account?.id}님</MenuCenterP>
-            <MenuItem onClick={() => {router.push("/user/mypage", undefined, { shallow : true }); closeMenu()}}><MenuCenterSpan>마이페이지</MenuCenterSpan></MenuItem>
             <MenuItem onClick={accountStore.logout}><MenuCenterSpan>로그아웃</MenuCenterSpan></MenuItem>
         </>
     )

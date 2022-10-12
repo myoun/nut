@@ -1,4 +1,4 @@
-import { AppBar, IconButton, Menu, Toolbar } from "@mui/material";
+import { AppBar, IconButton, Menu, MenuItem, Toolbar } from "@mui/material";
 import { Box } from "@mui/system";
 import emotionStyled from "@emotion/styled";
 import { Login, AccountCircle } from "@mui/icons-material";
@@ -8,7 +8,7 @@ import NutSignModal from "./modal/NutSignModal";
 import UserMenuItem from "./menu/UserMenuItem";
 import AdminMenuItem from "./menu/AdminMenuItem";
 import SellerMenuItem from "./menu/SellerMenuItem";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 
 interface AppBarProps {
     handleModalOpen : () => void
@@ -35,6 +35,11 @@ const NutAppBar = () => {
     <NutAppBarWithoutModal handleModalOpen={loginModal.open}></NutAppBarWithoutModal>
     <NutSignModal open={loginModal.isOpen} handleClose={loginModal.close}></NutSignModal>
   </>
+}
+
+export const MenuLinkItem = ({href, children, closeMenu}: { href: URL | string, children?: JSX.Element | any, closeMenu: () => void}) => {
+  const router = useRouter()
+  return <MenuItem onClick={() => {router.push(href); closeMenu();}}>{children}</MenuItem>
 }
 
 const NutAppBarWithoutModal = (props: AppBarProps) => {

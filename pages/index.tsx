@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import emotionStyled from "@emotion/styled"
-import React, { ReactElement } from "react"
+import React, { ReactElement, useEffect } from "react"
 import NutAppBar from '../src/components/NutAppBar';
 import NutLoginModal from '../src/components/modal/NutSignModal';
 import { Button } from '@mui/material';
@@ -32,18 +32,21 @@ const Home: NextPageWithLayout = () => {
   const accountStore = useAccountStore()
   const loginModal = useLoginModal()
   
-  const __next = document.getElementById("__next")
+  useEffect(() => {
+    const __next = document.getElementById("__next") ?? document.createElement('div')
 
-  const { bind, unbind } = createScrollSnap(__next!, {
-    snapDestinationX: '0%',
-    snapDestinationY: '90%',
-    timeout: 100,
-    duration: 300,
-    threshold: 0.2,
-    snapStop: false,
-  }, () => console.log('element snapped'))
+    const { bind, unbind } = createScrollSnap(__next, {
+      snapDestinationX: '0%',
+      snapDestinationY: '90%',
+      timeout: 100,
+      duration: 300,
+      threshold: 0.2,
+      snapStop: false,
+    }, () => console.log('element snapped'))
+  
+    bind()
+  }, [])
 
-  bind()
 
   const startNow = () => {
     if (accountStore.accountType == "guest") {
